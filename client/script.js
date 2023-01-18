@@ -1,5 +1,5 @@
 import bot from "./assets/bot.svg";
-import user from "./assests/user.svg"
+import user from "./assets/user.svg"
 
 
 const form = document.querySelector('form');
@@ -61,4 +61,35 @@ function loader (element) {
   )
  }
 
- 
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const date  = newFormData(form);
+   //user chat stripe
+
+   chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+
+   form.reset();
+
+   //bot chatstripe
+
+   const uniqueId = generateUniqueId();
+   chatContainer.innerHTML += chatStripe(true, " " , uniqueId);
+
+
+   chatContainer.scrollTop = chatContainer.scrollHeight;
+
+   const messageDiv = document.getElementById(uniqueId);
+
+   loader(messageDiv);
+
+
+   }
+
+   form.addEventListener('submit' , handleSubmit);
+    form.addEventListener('keyup', (e) => {
+      if(e.keyCode ===13){
+        handleSubmit(e);
+      }
+    })
+   
